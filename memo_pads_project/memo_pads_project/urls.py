@@ -16,7 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from memo_pads_app.views import MainSite, MemoPadsView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('main/', MainSite.as_view(), name='main'),
+    path('memopads/', MemoPadsView.as_view(), name='memopad'),
 ]

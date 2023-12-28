@@ -1,0 +1,56 @@
+body {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(34,25,6,1) 0%, rgba(121,92,9,1) 43%, rgba(220,233,11,1) 100%, rgba(0,212,255,1) 100%);
+}
+
+.memopadbox{
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    height: 400px;
+    margin: 15px;
+    background:#ffa;
+    border-color: #FFEB38;
+    border-radius: 10px;
+    -webkit-box-shadow: 30px 30px 57px -9px rgba(255, 255, 117, 0.4);
+    -moz-box-shadow: 30px 30px 57px -9px rgba(255, 255, 117, 0.4);
+    box-shadow: 30px 30px 57px -9px rgba(255, 255, 117, 0.4);
+
+
+}
+
+.memopadbox-descbox {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    justify-content: space-between;
+    background: #F4E21A;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+
+
+}
+
+.memopadbox-descbox-title{
+    margin: 5px;
+    border-radius: 10px;
+
+}
+
+.memopadbox-descbox-category{
+    margin: 5px;
+}
+
+.memopadbox-details {
+    margin-top: 5px;
+}
+
+.memopadbox-details-notes {
+    margin: 5px;
+}

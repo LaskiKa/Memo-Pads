@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block body %}
+
+{% for memopad in memopads %}
+
+<div class="memopadbox">
+    <div class="memopadbox-descbox">
+        <div class="memopadbox-descbox-title">{{memopad.title}}</div>
+        <div class="memopadbox-descbox-category">{{memopad.category.category}}</div>
+    </div>
+
+    <div class="memopadbox-details">
+        <div class="memopadbox-details-notes">{{memopad.note}}</div>
+    </div>
+</div>
+
+{% endfor %}
+
+
+<div>dodaj notatkę</div>
+{% endblock %}
