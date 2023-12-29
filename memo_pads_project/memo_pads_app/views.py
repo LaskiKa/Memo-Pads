@@ -30,27 +30,24 @@ class MemoPadsView(View):
     def post(self, request):
 
         title = request.POST.get('title')
-        categoryselect = request.POST.get('category-select')
-        categoryinput = request.POST.get('category-input')
+        category_select = request.POST.get('category-select')
+        category_input = request.POST.get('category-input')
         note = request.POST.get('note')
-        categories = Category.objects.all()
-        memopads = MemoPads.objects.filter(owner=self.request.user.id)
+        user_id = self.request.user.id
 
-        if categoryselect == 'addNewCategory':
-            newcategory = Category(category=categoryinput)
-            newcategory.save()
-
-            memopad = MemoPads(owner=self.request.user,
-                               title=title,
-                               category=Category.objects.get(category=categoryinput),
-                               note=note)
-            memopad.save()
+        if category_select == 'addNewCategory':
+            new_category, created = Category.objects.get_or_create(category=category_input)
+            category = new_category
         else:
-            memopad = MemoPads(owner=self.request.user,
-                               title=title,
-                               category=Category.objects.get(pk=categoryselect.id),
-                               note=note)
-            memopad.save()
+            category = Category.objects.get(pk=category_select)
+
+        MemoPads.objects.create(owner_id=user_id,
+                                title=title,
+                                category=category,
+                                note=note)
+
+        categories = Category.objects.all()
+        memopads = MemoPads.objects.filter(owner=user_id)
 
         return render(request,
                       'memo-pads.html',
