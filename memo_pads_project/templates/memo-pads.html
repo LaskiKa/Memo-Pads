@@ -3,6 +3,24 @@
 
 {% block body %}
 
+<div class="addMemoPadModalBox">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <form id="addMemoPadForm" class="addMemoPadForm">
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" required>
+
+            <label for="category">Category:</label>
+            <input type="text" id="category" name="category" required>
+
+            <label for="note">Note:</label>
+            <textarea id="note" name="note" required></textarea>
+
+            <input type="submit" value="Add Memo Pad">
+        </form>
+    </div>
+</div>
+
 {% for memopad in memopads %}
 
 <div class="memopadbox">
@@ -12,12 +30,19 @@
     </div>
 
     <div class="memopadbox-details">
-        <div class="memopadbox-details-notes">{{memopad.note}}</div>
+        <div class="memopadbox-details-notes">{{memopad.note|safe}}</div>
     </div>
 </div>
 
 {% endfor %}
 
 
-<div>dodaj notatkę</div>
+<div class="add-memopadbox">
+    <input
+            class="add-memopadbox-sign"
+            type="button"
+            value="&#43;"
+            title="Create new memo pad"
+    >
+</div>
 {% endblock %}

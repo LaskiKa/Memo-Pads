@@ -54,3 +54,97 @@ body {
 .memopadbox-details-notes {
     margin: 5px;
 }
+
+.add-memopadbox {
+    position:fixed;
+    bottom: 2%;
+    right: 2%;
+    display: flex;
+    justify-content: center;
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+    background: rgb(187,124,0);
+    background: radial-gradient(circle, rgba(187,124,0,1) 0%, rgba(255,200,81,0.703016241299304) 100%);    -moz-box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
+    box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
+}
+
+.add-memopadbox-sign {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 5rem;
+    color: white;
+    font-weight: bold;
+    background-color: transparent;
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.addMemoPadModalBox {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    color: #555;
+}
+
+.addMemoPadForm {
+    width: 100%;
+
+}
+
+.addMemoPadForm label {
+    display: block;
+    margin: 10px 0;
+    color: #333;
+}
+
+.addMemoPadForm input,
+.addMemoPadForm textarea {
+    width: 100%;
+    padding: 8px;
+    margin: 6px 0;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.addMemoPadForm input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.addMemoPadForm input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+.addMemoPadForm textarea {
+    height: 100px;
+}
