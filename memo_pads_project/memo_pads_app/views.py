@@ -1,5 +1,5 @@
 from django.contrib import messages
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from memo_pads_app.models import MemoPads, Category
@@ -21,7 +21,7 @@ class MemoPadsView(View):
 
     def get(self, request):
         categories = Category.objects.all()
-        memopads = MemoPads.objects.all()
+        memopads = MemoPads.objects.filter(owner=self.request.user.id)
         return render(request,
                       'memo-pads.html',
                       context={"memopads": memopads,
@@ -34,9 +34,15 @@ class MemoPadsView(View):
         categoryselect = request.POST.get('category-select')
         categoryinput = request.POST.get('category-input')
         note = request.POST.get('note')
-
         categories = Category.objects.all()
         memopads = MemoPads.objects.all()
+
+        memopad = MemoPads(owner=self.request.user,
+                           title=title,
+                           category=Category.objects.get(pk=categoryselect),
+                           note=note)
+        memopad.save()
+
         return render(request,
                       'memo-pads.html',
                       context={"memopads": memopads,
@@ -70,3 +76,8 @@ class LoginView(View):
             return render(request,
                           'login.html',
                           )
+
+class LogoutView(View):
+    def get(self, request):
+        logout(request)
+        return redirect('/main')

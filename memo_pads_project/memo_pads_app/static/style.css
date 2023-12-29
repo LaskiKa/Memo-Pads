@@ -5,7 +5,7 @@ body {
     justify-content: center;
     flex-wrap: wrap;
     align-items: center;
-    background: rgb(2,0,36);
+    margin-top: 50px;
     background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(34,25,6,1) 0%, rgba(121,92,9,1) 43%, rgba(220,233,11,1) 100%, rgba(0,212,255,1) 100%);
 }
 
@@ -161,5 +161,35 @@ body {
 
 #category-input{
     display: none
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(34,25,6,1) 0%, rgba(121,92,9,1) 43%, rgba(220,233,11,1) 100%, rgba(0,212,255,1) 100%);
+}
+
+nav a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+nav a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.user {
+    position:fixed;
+    top: 0;
+    right: 0;
 }
 
