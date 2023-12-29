@@ -28,20 +28,29 @@ class MemoPadsView(View):
                                "categories": categories})
 
     def post(self, request):
-        print(request.POST)
 
         title = request.POST.get('title')
         categoryselect = request.POST.get('category-select')
         categoryinput = request.POST.get('category-input')
         note = request.POST.get('note')
         categories = Category.objects.all()
-        memopads = MemoPads.objects.all()
+        memopads = MemoPads.objects.filter(owner=self.request.user.id)
 
-        memopad = MemoPads(owner=self.request.user,
-                           title=title,
-                           category=Category.objects.get(pk=categoryselect),
-                           note=note)
-        memopad.save()
+        if categoryselect == 'addNewCategory':
+            newcategory = Category(category=categoryinput)
+            newcategory.save()
+
+            memopad = MemoPads(owner=self.request.user,
+                               title=title,
+                               category=Category.objects.get(category=categoryinput),
+                               note=note)
+            memopad.save()
+        else:
+            memopad = MemoPads(owner=self.request.user,
+                               title=title,
+                               category=Category.objects.get(pk=categoryselect.id),
+                               note=note)
+            memopad.save()
 
         return render(request,
                       'memo-pads.html',
@@ -67,15 +76,17 @@ class LoginView(View):
                           )
 
         user = authenticate(username=userobj.username, password=user_password)
-        if user.is_authenticated:
+        try:
+            auth = user.is_authenticated
             login(self.request, user)
             return redirect('/memopads')
 
-        else:
+        except AttributeError:
             messages.warning(request, "Wrong mail or password, try again.")
             return render(request,
                           'login.html',
                           )
+
 
 class LogoutView(View):
     def get(self, request):
