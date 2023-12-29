@@ -82,7 +82,7 @@ body {
     border-radius: 10px;
     cursor: pointer;
 }
-
+.LoginBox,
 .addMemoPadModalBox {
     display: none;
     position: fixed;
@@ -94,6 +94,10 @@ body {
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     z-index: 1;
+}
+
+.LoginBox {
+    display:flex;
 }
 
 .modal-content {
@@ -111,19 +115,24 @@ body {
     color: #555;
 }
 
-.addMemoPadForm {
+.addMemoPadForm,
+.LoginForm{
     width: 100%;
 
 }
 
-.addMemoPadForm label {
+.LoginForm label,
+.addMemoPadForm label,
+.addMemoPadForm select{
     display: block;
     margin: 10px 0;
     color: #333;
 }
 
+.LoginForm input,
 .addMemoPadForm input,
-.addMemoPadForm textarea {
+.addMemoPadForm textarea,
+.addMemoPadForm select{
     width: 100%;
     padding: 8px;
     margin: 6px 0;
@@ -132,6 +141,7 @@ body {
     border-radius: 4px;
 }
 
+.LoginForm input[type="submit"],
 .addMemoPadForm input[type="submit"] {
     background-color: #4CAF50;
     color: white;
@@ -148,3 +158,8 @@ body {
 .addMemoPadForm textarea {
     height: 100px;
 }
+
+#category-input{
+    display: none
+}
+

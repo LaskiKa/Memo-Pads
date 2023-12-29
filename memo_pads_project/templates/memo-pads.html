@@ -6,12 +6,20 @@
 <div class="addMemoPadModalBox">
     <div class="modal-content">
         <span class="close">&times;</span>
-        <form id="addMemoPadForm" class="addMemoPadForm">
-            <label for="title">Title:</label>
+        <form id="addMemoPadForm" class="addMemoPadForm" method="post">
+            {% csrf_token %}
+            <label>Title:</label>
             <input type="text" id="title" name="title" required>
 
-            <label for="category">Category:</label>
-            <input type="text" id="category" name="category" required>
+            <label id="category-label">Category:</label>
+            <select id="category-select" name="category-select" required>
+                {% for category in categories %}
+                <option value="{{category.id}}">{{category.category}}</option>
+                {% endfor %}
+                <option value="addNewCategory">New Category</option>
+            </select>
+
+            <input type="text" id="category-input" name="category-input">
 
             <label for="note">Note:</label>
             <textarea id="note" name="note" required></textarea>
