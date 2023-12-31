@@ -1,3 +1,5 @@
+import random
+
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
@@ -58,11 +60,15 @@ class MemoPadsView(View):
 class ShuffleView(View):
     def get(self, request):
         user_id = self.request.user.id
-        memopads = MemoPads.objects.filter(owner=user_id)
+        memopads_queryset = MemoPads.objects.filter(owner=user_id)
+        memopads = list(memopads_queryset)
+
+        random.shuffle(memopads)
 
         return render(request,
                       'shuffle.html',
                       context={"memopads": memopads})
+
 
 class LoginView(View):
     def get(self, request):
