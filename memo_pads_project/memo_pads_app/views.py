@@ -55,6 +55,15 @@ class MemoPadsView(View):
                                "categories": categories})
 
 
+class ShuffleView(View):
+    def get(self, request):
+        user_id = self.request.user.id
+        memopads = MemoPads.objects.filter(owner=user_id)
+
+        return render(request,
+                      'shuffle.html',
+                      context={"memopads": memopads})
+
 class LoginView(View):
     def get(self, request):
         return render(request,

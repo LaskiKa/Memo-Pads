@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from memo_pads_app.views import MainSite, MemoPadsView, LoginView, LogoutView
+from memo_pads_app.views import MainSite, MemoPadsView, LoginView, LogoutView, ShuffleView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,4 +24,5 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(), name='logout'),
     path('main/', MainSite.as_view(), name='main'),
     path('memopads/', MemoPadsView.as_view(), name='memopads'),
+    path('shuffle/', ShuffleView.as_view(), name='shuffle'),
 ]

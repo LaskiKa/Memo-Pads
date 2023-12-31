@@ -9,6 +9,27 @@ body {
     background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(34,25,6,1) 0%, rgba(121,92,9,1) 43%, rgba(220,233,11,1) 100%, rgba(0,212,255,1) 100%);
 }
 
+.swiper,
+.swiper-wrapper,
+.swiper-slide {
+    width: 600px;
+    height: 500px;
+}
+
+.swiper {
+    margin-top: 50px;
+}
+
+.swiper-slide {
+    display: flex;
+    justify-content: center;
+}
+
+.swiper-button-prev {
+}
+
+
+.memopadbox-shuffle,
 .memopadbox{
     display: flex;
     flex-direction: column;

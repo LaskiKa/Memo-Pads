@@ -4,6 +4,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+/>
     <link rel="stylesheet" href='{% static "style.css"  %}'>
     <title>Memo pads</title>
 </head>
@@ -12,6 +16,7 @@
     <a href="{% url 'main' %}">Home</a>
     <a href="{% url 'memopads' %}">Memo Pads</a>
     {% if user.is_authenticated %}
+    <a href="{% url 'shuffle' %}">Shuffle</a>
     <a href="{% url 'logout' %}">Logout</a>
     {% else %}
     <a href="{% url 'login' %}">Login</a>

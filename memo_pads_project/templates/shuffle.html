@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block body %}
+
+<!--<div class="swiper-container">-->
+<!--    <div class="swiper-wrapper">-->
+<!--        {% for memopad in memopads %}-->
+<!--        <div class="swiper-slide">-->
+<!--            <div class="memopadbox-shuffle">-->
+<!--                <div class="memopadbox-descbox">-->
+<!--                    <div class="memopadbox-descbox-title">{{memopad.title}}</div>-->
+<!--                    <div class="memopadbox-descbox-category">{{memopad.category.category}}</div>-->
+<!--                </div>-->
+<!--                <div class="memopadbox-details">-->
+<!--                    <div class="memopadbox-details-notes">{{memopad.note|safe}}</div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        {% endfor %}-->
+<!--    </div>-->
+<!--    &lt;!&ndash; Strzałki nawigacyjne Swiper.js &ndash;&gt;-->
+<!--    <div class="swiper-button-next"> ds</div>-->
+<!--    <div class="swiper-button-prev"> sdd</div>-->
+<!--</div>-->
+
+
+<!-- Slider main container -->
+<div class="swiper">
+    <!-- Additional required wrapper -->
+    <div class="swiper-wrapper">
+        <!-- Slides -->
+
+        {% for memopad in memopads %}
+        <div class="swiper-slide">
+
+            <div class="memopadbox">
+                <div class="memopadbox-descbox">
+                    <div class="memopadbox-descbox-title">{{memopad.title}}</div>
+                    <div class="memopadbox-descbox-category">{{memopad.category.category}}</div>
+                </div>
+
+                <div class="memopadbox-details">
+                    <div class="memopadbox-details-notes">{{memopad.note|safe}}</div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <!-- If we need pagination -->
+    <!--    <div class="swiper-pagination"></div>-->
+
+    <!-- If we need navigation buttons -->
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+
+    <!-- If we need scrollbar -->
+        <div class="swiper-scrollbar"></div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="{% static 'swiper.js' %}"></script>
+{% endblock %}
