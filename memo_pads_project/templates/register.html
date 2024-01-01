@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block body %}
+
+<div class="RegisterBox">
+    <div class="modal-content">
+        <form class="RegisterForm" method="post" id="register-form">
+            {% csrf_token %}
+
+
+            <h2 class="">Register Form</h2>
+            <label>Username</label>
+            <input type="text" name="user_name" id="user_name" required/>
+
+            <label>Email</label>
+
+            <input type="email" id="email" name="email" required/>
+            <label>Password</label>
+
+            <input type="password" id="password" name="password"/>
+
+            <div id="pwd-requirements" hidden="hidden">
+                <p>Password must contain the following:</p>
+                <p id="lowercase">A
+                    <b>lowercase</b> letter</p>
+                <p id="uppercase" >A <b>capital
+                    (uppercase)</b> letter</p>
+                <p id="number">A <b>number</b>
+                </p>
+                <p id="length" >Minimum <b>8
+                    characters</b></p>
+            </div>
+
+
+            {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-danger" role="alert">{{message}}</div>
+            {% endfor %}
+            {% endif %}
+
+
+            <input type="submit" value="Register" id="register-button">
+
+            <div>
+                <p class="mb-0">Already have account? <a href="{% url 'login' %}"
+                                                         class="text-white-50 fw-bold">Login</a>
+                </p>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<script src="{% static 'form_validation.js' %}"></script>
+
+{% endblock %}

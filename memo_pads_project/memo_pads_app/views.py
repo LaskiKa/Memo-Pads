@@ -103,4 +103,27 @@ class LoginView(View):
 class LogoutView(View):
     def get(self, request):
         logout(request)
-        return redirect('/main')
+        return redirect('/')
+
+
+class RegisterView(View):
+
+    def get(self, request):
+        return render(request,
+                      'register.html')
+
+    def post(self, request):
+
+        username = request.POST.get("user_name")
+        user_mail = str(request.POST.get("email"))
+        user_password = request.POST.get("password")
+
+        if User.objects.filter(email=user_mail).first():
+            messages.success(request, "Account already exist, try to login")
+            return redirect('/register')
+
+        usr_obj = User(username=username, email=user_mail)
+        usr_obj.set_password(user_password)
+        usr_obj.save()
+
+        return redirect('/login')

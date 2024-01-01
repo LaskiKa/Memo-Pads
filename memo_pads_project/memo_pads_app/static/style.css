@@ -98,6 +98,8 @@ body {
     border-radius: 10px;
     cursor: pointer;
 }
+
+.RegisterBox,
 .LoginBox,
 .addMemoPadModalBox {
     display: none;
@@ -112,6 +114,7 @@ body {
     z-index: 1;
 }
 
+.RegisterBox,
 .LoginBox {
     display:flex;
 }
@@ -131,12 +134,14 @@ body {
     color: #555;
 }
 
+.RegisterForm,
 .addMemoPadForm,
-.LoginForm{
+.LoginForm {
     width: 100%;
 
 }
 
+.RegisterForm label,
 .LoginForm label,
 .addMemoPadForm label,
 .addMemoPadForm select{
@@ -145,6 +150,7 @@ body {
     color: #333;
 }
 
+.RegisterForm input,
 .LoginForm input,
 .addMemoPadForm input,
 .addMemoPadForm textarea,
@@ -157,6 +163,7 @@ body {
     border-radius: 4px;
 }
 
+.RegisterForm input[type="submit"],
 .LoginForm input[type="submit"],
 .addMemoPadForm input[type="submit"] {
     background-color: #4CAF50;
