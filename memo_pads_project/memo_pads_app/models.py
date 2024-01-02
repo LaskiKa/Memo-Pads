@@ -7,6 +7,7 @@ class MemoPads(models.Model):
     title = models.CharField(max_length=255)
     category = models.ForeignKey("Category", on_delete=models.SET_NULL, null=True)
     note = models.CharField()
+    image = models.ImageField(upload_to='memo_images/', null=True, blank=True)
 
 
 class Category(models.Model):
