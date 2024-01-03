@@ -24,16 +24,17 @@ class MemoPadsView(View):
     def get(self, request):
         categories = Category.objects.all()
         memopads = MemoPads.objects.filter(owner=self.request.user.id)
+
         return render(request,
                       'memo-pads.html',
                       context={"memopads": memopads,
                                "categories": categories})
 
     def post(self, request):
-
         title = request.POST.get('title')
         category_select = request.POST.get('category-select')
         category_input = request.POST.get('category-input')
+        image = request.FILES.get('image')
         note = request.POST.get('note')
         user_id = self.request.user.id
 
@@ -46,7 +47,8 @@ class MemoPadsView(View):
         MemoPads.objects.create(owner_id=user_id,
                                 title=title,
                                 category=category,
-                                note=note)
+                                note=note,
+                                image=image)
 
         categories = Category.objects.all()
         memopads = MemoPads.objects.filter(owner=user_id)
@@ -113,7 +115,6 @@ class RegisterView(View):
                       'register.html')
 
     def post(self, request):
-
         username = request.POST.get("user_name")
         user_mail = str(request.POST.get("email"))
         user_password = request.POST.get("password")
