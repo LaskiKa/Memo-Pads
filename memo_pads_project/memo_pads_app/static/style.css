@@ -25,6 +25,7 @@ body {
     justify-content: center;
 }
 
+.memopadbox-shuffle,
 .memopadbox{
     display: flex;
     flex-direction: column;
@@ -36,12 +37,21 @@ body {
     border-radius: 10px;
     -webkit-box-shadow: 30px 30px 57px -9px rgba(255, 255, 117, 0.4);
     -moz-box-shadow: 30px 30px 57px -9px rgba(255, 255, 117, 0.4);
-    box-shadow: 30px 30px 57px -9px rgba(255, 255, 117, 0.4);
-
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
 }
 
+.memopadbox-shuffle {
+    transition: transform 0.3s ease-in-out;
+}
+
+.memopadbox-shuffle:hover {
+    transform: scale(1.05);
+}
+
+.memopadbox-descbox-shuffle,
 .memopadbox-descbox {
+    cursor: pointer;
     display: flex;
     align-items: center;
     height: 40px;
@@ -49,8 +59,6 @@ body {
     background: #F4E21A;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-
-
 }
 
 .memopadbox-descbox-title{
@@ -63,12 +71,34 @@ body {
     margin: 5px;
 }
 
+
+.memopadbox-details-shuffle,
 .memopadbox-details {
+    display: flex;
+    flex-direction: column;
     margin-top: 5px;
 }
 
+.memopadbox-details-shuffle {
+    display: none;
+}
+
+
 .memopadbox-details-notes {
     margin: 5px;
+}
+
+.memopadbox-details-shuffle img,
+.memopadbox-details img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 25%;
+    height: auto;
+    background-size: contain;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
 .add-memopadbox {
@@ -99,6 +129,7 @@ body {
     cursor: pointer;
 }
 
+.galleryModalBox,
 .RegisterBox,
 .LoginBox,
 .addMemoPadModalBox {
@@ -132,6 +163,42 @@ body {
     font-size: 20px;
     cursor: pointer;
     color: #555;
+}
+
+.galleryModalBox {
+    display: none;
+    justify-content: center;    
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 2;
+    overflow: hidden;
+}
+
+.galleryContent {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.galleryClose {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.galleryContent img {
+    display: flex;
+    max-width: 80%;
+    max-height: 80%;
+    transition: transform 0.3s ease-in-out;
+}
+
+.galleryContent img:hover {
+    transform: scale(1.1);
 }
 
 .RegisterForm,

@@ -3,10 +3,17 @@
 
 {% block body %}
 
+<div class="galleryModalBox">
+    <div class="galleryContent">
+        <span class="galleryClose">&times;</span>
+        <img id="modalImage" class="modalContent">
+    </div>
+</div>
+
 <div class="addMemoPadModalBox">
     <div class="modal-content">
         <span class="close">&times;</span>
-        <form id="addMemoPadForm" class="addMemoPadForm" method="post">
+        <form id="addMemoPadForm" class="addMemoPadForm" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <label>Title:</label>
             <input type="text" id="title" name="title" required>
@@ -24,6 +31,9 @@
             <label for="note">Note:</label>
             <textarea id="note" name="note" required></textarea>
 
+            <label for="image">Obraz:</label>
+            <input id="image" name="image" type="file">
+
             <input type="submit" value="Add Memo Pad">
         </form>
     </div>
@@ -39,7 +49,11 @@
 
     <div class="memopadbox-details">
         <div class="memopadbox-details-notes">{{memopad.note|safe}}</div>
+        {% if memopad.image %}
+        <img class="memopadbox-details-image" src="{{ memopad.image.url }}" alt="Memo Image" loading="lazy">
+        {% endif %}
     </div>
+
 </div>
 
 {% endfor %}
