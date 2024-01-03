@@ -1,0 +1,211 @@
+body {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 50px;
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(34,25,6,1) 0%, rgba(121,92,9,1) 43%, rgba(220,233,11,1) 100%, rgba(0,212,255,1) 100%);
+}
+
+.swiper,
+.swiper-wrapper,
+.swiper-slide {
+    width: 600px;
+    height: 500px;
+}
+
+.swiper {
+    margin-top: 50px;
+}
+
+.swiper-slide {
+    display: flex;
+    justify-content: center;
+}
+
+.memopadbox{
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    height: 400px;
+    margin: 15px;
+    background:#ffa;
+    border-color: #FFEB38;
+    border-radius: 10px;
+    -webkit-box-shadow: 30px 30px 57px -9px rgba(255, 255, 117, 0.4);
+    -moz-box-shadow: 30px 30px 57px -9px rgba(255, 255, 117, 0.4);
+    box-shadow: 30px 30px 57px -9px rgba(255, 255, 117, 0.4);
+
+
+}
+
+.memopadbox-descbox {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    justify-content: space-between;
+    background: #F4E21A;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+
+
+}
+
+.memopadbox-descbox-title{
+    margin: 5px;
+    border-radius: 10px;
+
+}
+
+.memopadbox-descbox-category{
+    margin: 5px;
+}
+
+.memopadbox-details {
+    margin-top: 5px;
+}
+
+.memopadbox-details-notes {
+    margin: 5px;
+}
+
+.add-memopadbox {
+    position:fixed;
+    bottom: 2%;
+    right: 2%;
+    display: flex;
+    justify-content: center;
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+    background: rgb(187,124,0);
+    background: radial-gradient(circle, rgba(187,124,0,1) 0%, rgba(255,200,81,0.703016241299304) 100%);    -moz-box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
+    box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
+}
+
+.add-memopadbox-sign {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 5rem;
+    color: white;
+    font-weight: bold;
+    background-color: transparent;
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.LoginBox,
+.addMemoPadModalBox {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.LoginBox {
+    display:flex;
+}
+
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    color: #555;
+}
+
+.addMemoPadForm,
+.LoginForm{
+    width: 100%;
+
+}
+
+.LoginForm label,
+.addMemoPadForm label,
+.addMemoPadForm select{
+    display: block;
+    margin: 10px 0;
+    color: #333;
+}
+
+.LoginForm input,
+.addMemoPadForm input,
+.addMemoPadForm textarea,
+.addMemoPadForm select{
+    width: 100%;
+    padding: 8px;
+    margin: 6px 0;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.LoginForm input[type="submit"],
+.addMemoPadForm input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.addMemoPadForm input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+.addMemoPadForm textarea {
+    height: 100px;
+}
+
+#category-input{
+    display: none
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(34,25,6,1) 0%, rgba(121,92,9,1) 43%, rgba(220,233,11,1) 100%, rgba(0,212,255,1) 100%);
+}
+
+nav a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+nav a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.user {
+    position:fixed;
+    top: 0;
+    right: 0;
+}
+

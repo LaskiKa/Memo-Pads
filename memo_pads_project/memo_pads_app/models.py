@@ -6,7 +6,7 @@ class MemoPads(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     category = models.ForeignKey("Category", on_delete=models.SET_NULL, null=True)
-    note = models.CharField()
+    note = models.CharField(max_length=1200)
 
 
 class Category(models.Model):
