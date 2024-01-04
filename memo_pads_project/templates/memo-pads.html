@@ -29,7 +29,7 @@
             <input type="text" id="category-input" name="category-input">
 
             <label for="note">Note:</label>
-            <textarea id="note" name="note" required></textarea>
+            <textarea id="note" name="note"></textarea>
 
             <label for="image">Obraz:</label>
             <input id="image" name="image" type="file">
@@ -72,4 +72,13 @@
 {% endif %}
 
 
+<script src="https://cdn.tiny.cloud/1/yqxa1nqsoxr7idi00ug330h0gsh66xcb87j9dbiwzufq336s/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script><script src="https://cdn.tiny.cloud/1/yqxa1nqsoxr7idi00ug330h0gsh66xcb87j9dbiwzufq336s/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+    tinymce.init({
+        selector: 'textarea',
+        apiKey: '{{ TINYMCE_API_KEY }}',
+        plugins: 'lists',
+        toolbar: 'bullist numlist bold italic underline lignleft aligncenter alignright alignjustify',
+    });
+</script>
 {% endblock %}

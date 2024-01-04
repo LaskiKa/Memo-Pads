@@ -22,8 +22,9 @@ class MemoPadsView(View):
     """Memo pads list"""
 
     def get(self, request):
-        categories = Category.objects.all()
-        memopads = MemoPads.objects.filter(owner=self.request.user.id)
+        user_id = self.request.user.id
+        categories = Category.objects.filter(memopads__owner=user_id).distinct()
+        memopads = MemoPads.objects.filter(owner=user_id)
 
         return render(request,
                       'memo-pads.html',
