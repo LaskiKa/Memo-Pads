@@ -36,7 +36,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'memo_pads_app'
+    'memo_pads_app',
+    'tinymce'
 ]
 
 MIDDLEWARE = [
@@ -116,3 +117,24 @@ except ModuleNotFoundError:
     exit(0)
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# TinyMCE
+TINYMCE_DEFAULT_CONFIG = {
+    'height': 360,
+    'width': 900,
+    'cleanup_on_startup': True,
+    'custom_undo_redo_levels': 20,
+    'selector': 'textarea',
+    'theme': 'modern',
+    'plugins': '''
+        lists textcolor codesample contextmenu
+        code nonbreaking
+        contextmenu wordcount visualblocks
+        fullscreen autolink charmap
+        anchor pagebreak
+        ''',
+    'contextmenu': 'formats',
+    'menubar': True,
+    'statusbar': True,
+}
+TINYMCE_API_KEY = 'yqxa1nqsoxr7idi00ug330h0gsh66xcb87j9dbiwzufq336s'
