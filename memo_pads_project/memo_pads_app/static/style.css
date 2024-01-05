@@ -6,7 +6,7 @@ body {
     flex-wrap: wrap;
     align-items: center;
     margin-top: 50px;
-    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(34,25,6,1) 0%, rgba(121,92,9,1) 43%, rgba(220,233,11,1) 100%, rgba(0,212,255,1) 100%);
+    background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
 }
 
 .swiper,
@@ -259,7 +259,7 @@ textarea {
 #category-input{
     display: none
 }
-
+/* Nav  */
 nav {
     display: flex;
     justify-content: center;
@@ -268,12 +268,13 @@ nav {
     position: fixed;
     top: 0;
     z-index: 1000;
-    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(34,25,6,1) 0%, rgba(121,92,9,1) 43%, rgba(220,233,11,1) 100%, rgba(0,212,255,1) 100%);
+    background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+
 }
 
 nav a {
     display: block;
-    color: white;
+    color: rgb(0, 0, 0);
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
