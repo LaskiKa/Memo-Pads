@@ -4,10 +4,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const btn = document.querySelector('.add-memopadbox-sign');
     const memopadbox = document.querySelector('.addMemoPadModalBox');
     const closebtn = document.querySelector('.close');
-    const selectCategory = document.querySelector("#category-select")
-    const categoryInput = document.querySelector('#category-input')
     const galleryModalBox = document.querySelector('.galleryModalBox')
     const modalImage = document.getElementById('modalImage');
+
 
     descboxesShuffle.forEach(descboxShuffle => {
         descboxShuffle.addEventListener('click', () => {
@@ -43,18 +42,6 @@ document.addEventListener('DOMContentLoaded', function () {
         memopadbox.style.display = 'none';
     }
     
-    selectCategory.addEventListener('change', () => {
-        if (selectCategory.value == 'addNewCategory') {
-            categoryInput.style.display = 'flex';
-            categoryInput.required = true;
-        } else {
-            categoryInput.style.display = 'none';
-            categoryInput.required = false;
-        }
-    })
-    
-    
-    // Funkcja obsługi otwierania galerii
     function openGallery(imageSrc) {
         modalImage.src = imageSrc;
         galleryModalBox.style.display = 'flex';
@@ -62,5 +49,17 @@ document.addEventListener('DOMContentLoaded', function () {
     
 });
 
+const selectCategory = document.querySelector("#category-select")
+const categoryInput = document.querySelector('#category-input')
 
 
+selectCategory.addEventListener('change', () => {
+    console.log('selectCategory change');
+    if (selectCategory.value == 'addNewCategory') {
+        categoryInput.style.display = 'flex';
+        categoryInput.required = true;
+    } else {
+        categoryInput.style.display = 'none';
+        categoryInput.required = false;
+    }
+});
