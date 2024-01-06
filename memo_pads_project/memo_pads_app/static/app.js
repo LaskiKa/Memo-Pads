@@ -7,8 +7,6 @@ document.addEventListener('DOMContentLoaded', function () {
     const galleryModalBox = document.querySelector('.galleryModalBox')
     const modalImage = document.getElementById('modalImage');
 
-    console.log('select Category:', selectCategory);
-    console.log('category Input: ', categoryInput);
 
     descboxesShuffle.forEach(descboxShuffle => {
         descboxShuffle.addEventListener('click', () => {
