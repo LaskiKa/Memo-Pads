@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block body %}
+
+<div class="editMemoPadModalBox">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <form id="deleteMemoPadForm" class="deleteMemoPadForm" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <label>Czy chcesz usunąć notatkę?</label>
+            <input type="text" id="memopadid" name="memopadid" value="{{memopad.id}}" hidden>
+            <input class="delete-button" type="submit" value=Tak>
+            <a href="{% url 'memopads' %}"><input type="button" value="Nie"></a>
+        </form>
+    </div>
+</div>
+
+<script src="https://cdn.tiny.cloud/1/yqxa1nqsoxr7idi00ug330h0gsh66xcb87j9dbiwzufq336s/tinymce/6/tinymce.min.js"
+        referrerpolicy="origin"></script>
+<script src="https://cdn.tiny.cloud/1/yqxa1nqsoxr7idi00ug330h0gsh66xcb87j9dbiwzufq336s/tinymce/6/tinymce.min.js"
+        referrerpolicy="origin"></script>
+<script>
+    tinymce.init({
+        selector: 'textarea',
+        apiKey: '{{ TINYMCE_API_KEY }}',
+        plugins: 'lists',
+        toolbar: 'bullist numlist bold italic underline lignleft aligncenter alignright alignjustify',
+    });
+</script>
+{% endblock %}

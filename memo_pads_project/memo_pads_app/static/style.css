@@ -1,11 +1,11 @@
 body {
-    width: 100%;
-    height: 100%;
+    width: 99%;
+    height: 101%;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     align-items: center;
-    margin-top: 50px;
+    margin-top: 80px;
     background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
 }
 
@@ -48,6 +48,15 @@ body {
 .memopadbox-shuffle:hover {
     transform: scale(1.05);
 }
+
+.memopadbox {
+    transition: transform 0.3s ease-in-out;
+}
+
+.memopadbox:hover {
+    transform: scale(1.05);
+}
+
 
 .memopadbox-descbox-shuffle,
 .memopadbox-descbox {
@@ -145,6 +154,16 @@ body {
     z-index: 1;
 }
 
+.editMemoPadModalBox {
+    max-width: 700px;
+    display: flex;
+    margin-top: 10px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
 .RegisterBox,
 .LoginBox {
     display:flex;
@@ -205,7 +224,6 @@ body {
 .addMemoPadForm,
 .LoginForm {
     width: 100%;
-
 }
 
 .RegisterForm label,
@@ -217,8 +235,10 @@ body {
     color: #333;
 }
 
+
 .RegisterForm input,
 .LoginForm input,
+.deleteMemoPadForm input,
 .addMemoPadForm input,
 .addMemoPadForm textarea,
 .addMemoPadForm select{
@@ -230,8 +250,10 @@ body {
     border-radius: 4px;
 }
 
+
 .RegisterForm input[type="submit"],
 .LoginForm input[type="submit"],
+.deleteMemoPadForm input[type="button"],
 .addMemoPadForm input[type="submit"] {
     background-color: #4CAF50;
     color: white;
@@ -239,6 +261,40 @@ body {
     border: none;
     border-radius: 4px;
     cursor: pointer;
+}
+
+
+
+.delete-button,
+.delete-button a {
+    color: white;
+    width: 100%;
+    padding: 5px;
+    border: none;
+    border-radius: 4px;
+    background-color: #af4c4c;
+    cursor: pointer;
+
+}
+
+.delete-button:hover,
+.delete-button a:hover{
+    background-color: #a04545;
+}
+
+.edit-button {
+    color: black;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: #f4e230;
+    cursor: pointer
+}
+
+.edit-button:hover {
+    color: white;
+    background-color: #f4c630;
 }
 
 .addMemoPadForm input[type="submit"]:hover {
@@ -264,17 +320,21 @@ nav {
     display: flex;
     justify-content: center;
     overflow: hidden;
-    width: 100%;
+    margin-top: 10px;
     position: fixed;
+    border-radius: 10px;
     top: 0;
     z-index: 1000;
-    background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
+    background: white;
+    -webkit-box-shadow: 0px 10px 12px -7px rgba(66, 68, 90, 1);
+    -moz-box-shadow: 0px 10px 12px -7px rgba(66, 68, 90, 1);
+    box-shadow: 0px 10px 12px -7px rgba(66, 68, 90, 1);
 
 }
 
 nav a {
     display: block;
-    color: rgb(0, 0, 0);
+    color: #818180;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
@@ -289,5 +349,20 @@ nav a:hover {
     position:fixed;
     top: 0;
     right: 0;
+    margin-top: 10px;
+    border-radius: 10px;
+
 }
+
+/* Images */
+
+.memopadbox-details-image {
+    cursor: pointer;   
+    transition: transform 0.3s ease-in-out;
+}
+
+.memopadbox-details-image:hover {
+    transform: scale(1.10);
+}
+
 

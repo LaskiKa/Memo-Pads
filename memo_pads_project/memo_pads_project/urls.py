@@ -18,7 +18,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
-from memo_pads_app.views import MainSite, MemoPadsView, LoginView, LogoutView, ShuffleView, RegisterView
+from memo_pads_app.views import MainSite, MemoPadsView, LoginView, LogoutView, ShuffleView, RegisterView, MemoPadDetailView, MemoPadDelete
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,5 +27,7 @@ urlpatterns = [
     path('register/', RegisterView.as_view(), name='register'),
     path('', MainSite.as_view(), name='main'),
     path('memopads/', MemoPadsView.as_view(), name='memopads'),
+    path('memopads/<int:pk>/', MemoPadDetailView.as_view(), name='memopad'),
+    path('memopads/delete/<int:pk>/', MemoPadDelete.as_view(), name='delete'),
     path('shuffle/', ShuffleView.as_view(), name='shuffle'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
