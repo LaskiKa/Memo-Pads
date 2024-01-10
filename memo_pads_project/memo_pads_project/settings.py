@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'memo_pads_app',
-    'tinymce'
+    'tinymce',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
