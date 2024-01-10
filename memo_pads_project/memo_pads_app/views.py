@@ -6,9 +6,16 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from memo_pads_app.models import MemoPads, Category
 from django.views import View
-
+from rest_framework import permissions, viewsets
+from memo_pads_app.serializers import MemoPadsSerializer, CategorySerializer
 
 # Create your views here.
+
+class MemoPadViewSet(viewsets.ModelViewSet):
+    queryset = MemoPads.objects.all()
+    serializer_class = MemoPadsSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
 
 class MainSite(View):
     """Main site of Memo pads app"""

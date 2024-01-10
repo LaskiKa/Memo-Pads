@@ -18,9 +18,15 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
-from memo_pads_app.views import MainSite, MemoPadsView, LoginView, LogoutView, ShuffleView, RegisterView, MemoPadDetailView, MemoPadDelete
+from memo_pads_app.views import MainSite, MemoPadsView, LoginView, LogoutView, ShuffleView, RegisterView, MemoPadDetailView, MemoPadDelete, MemoPadViewSet
+from rest_framework import routers
+
+router = routers.DefaultRouter()
+router.register(r'memopadsapi', MemoPadViewSet)
+
 
 urlpatterns = [
+    path('api/', include(router.urls)),
     path('admin/', admin.site.urls),
     path('login/', LoginView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
@@ -31,3 +37,5 @@ urlpatterns = [
     path('memopads/delete/<int:pk>/', MemoPadDelete.as_view(), name='delete'),
     path('shuffle/', ShuffleView.as_view(), name='shuffle'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+urlpatterns += router.urls
