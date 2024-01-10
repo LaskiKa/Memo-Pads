@@ -16,7 +16,10 @@ class MemoPadViewSet(viewsets.ModelViewSet):
     serializer_class = MemoPadsSerializer
     permission_classes = [permissions.IsAuthenticated]
 
-
+class CategoryViewSet(viewsets.ModelViewSet):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+    permission_classes = [permissions.IsAuthenticated]
 class MainSite(View):
     """Main site of Memo pads app"""
 

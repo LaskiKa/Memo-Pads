@@ -18,11 +18,15 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
-from memo_pads_app.views import MainSite, MemoPadsView, LoginView, LogoutView, ShuffleView, RegisterView, MemoPadDetailView, MemoPadDelete, MemoPadViewSet
+from memo_pads_app.views import (MainSite, MemoPadsView, LoginView,
+                                 LogoutView, ShuffleView, RegisterView,
+                                 MemoPadDetailView, MemoPadDelete,
+                                 MemoPadViewSet, CategoryViewSet)
 from rest_framework import routers
 
 router = routers.DefaultRouter()
 router.register(r'memopadsapi', MemoPadViewSet)
+router.register(r'categoryapi', CategoryViewSet)
 
 
 urlpatterns = [
