@@ -1,25 +1,49 @@
 import random
-
+from django.views import View
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from memo_pads_app.models import MemoPads, Category
-from django.views import View
-from rest_framework import permissions, viewsets
-from memo_pads_app.serializers import MemoPadsSerializer, CategorySerializer
+from memo_pads_app.serializers import MemoPadsSerializer, CategorySerializer, UserSerializer
+from rest_framework import permissions, renderers, viewsets
+
+
 
 # Create your views here.
+class UserViewSet(viewsets.ReadOnlyModelViewSet):
+    """
+    This viewset automatically provides `list` and `retrieve` actions.
+    """
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
 
 class MemoPadViewSet(viewsets.ModelViewSet):
+    """
+    This ViewSet automatically provides `list`, `create`, `retrieve`,
+    `update` and `destroy` actions.
+    """
     queryset = MemoPads.objects.all()
+    category = Category.objects.all()
+    category_serializer = CategorySerializer
     serializer_class = MemoPadsSerializer
     permission_classes = [permissions.IsAuthenticated]
+
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+
+
+
 
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     permission_classes = [permissions.IsAuthenticated]
+
+
 class MainSite(View):
     """Main site of Memo pads app"""
 
@@ -113,6 +137,8 @@ class MemoPadDelete(View):
         memopad.delete()
 
         return redirect('memopads')
+
+
 class ShuffleView(View):
     def get(self, request):
         user_id = self.request.user.id

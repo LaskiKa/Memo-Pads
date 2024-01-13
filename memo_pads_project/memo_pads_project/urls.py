@@ -21,16 +21,55 @@ from django.urls import path, include
 from memo_pads_app.views import (MainSite, MemoPadsView, LoginView,
                                  LogoutView, ShuffleView, RegisterView,
                                  MemoPadDetailView, MemoPadDelete,
-                                 MemoPadViewSet, CategoryViewSet)
-from rest_framework import routers
+                                 MemoPadViewSet, CategoryViewSet,
+                                 UserViewSet)
+from rest_framework import routers, renderers
+
+
+
+
+memopads_list = MemoPadViewSet.as_view({
+    'get': 'list',
+    'post': 'create'
+})
+
+memopad_detail = MemoPadViewSet.as_view({
+    'get': 'retrieve',
+    'put': 'update',
+    'patch': 'partial_update',
+    'delete': 'destroy'
+})
+
+category_list = CategoryViewSet.as_view({
+    'get': 'list',
+    'post': 'create'
+})
+
+category_detail = CategoryViewSet.as_view({
+    'get': 'retrieve',
+    'put': 'update',
+    'patch': 'partial_update',
+    'delete': 'destroy'
+})
+
+user_list = UserViewSet.as_view({
+    'get': 'list'
+})
+user_detail = UserViewSet.as_view({
+    'get': 'retrieve'
+})
 
 router = routers.DefaultRouter()
 router.register(r'memopadsapi', MemoPadViewSet)
 router.register(r'categoryapi', CategoryViewSet)
-
+router.register(r'userapi', UserViewSet)
 
 urlpatterns = [
     path('api/', include(router.urls)),
+    # path('memopadsapi/', memopads_list, name='memopadsapi'),
+    # path('memopadsapi/<int:pk>', memopad_detail, name='memopaddetailapi'),
+    # path('users/', user_list, name='usersapi'),
+    # path('users/<int:pk>', user_detail, name='userdetailapi'),
     path('admin/', admin.site.urls),
     path('login/', LoginView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),

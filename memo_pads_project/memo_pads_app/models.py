@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 
 class MemoPads(models.Model):
-    owner = models.ForeignKey(User, on_delete=models.CASCADE)
+    owner = models.ForeignKey(User, related_name='memopads', on_delete=models.CASCADE)
     title = models.CharField(max_length=255)
     category = models.ForeignKey("Category", on_delete=models.SET_NULL, null=True)
     note = models.CharField()
