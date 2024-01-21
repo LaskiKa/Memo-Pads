@@ -2,12 +2,14 @@ from memo_pads_app.models import MemoPads, Category
 from rest_framework import serializers
 from django.contrib.auth.models import Group, User
 
+
 class UserSerializer(serializers.ModelSerializer):
     memopads = serializers.PrimaryKeyRelatedField(many=True, queryset=MemoPads.objects.all())
 
     class Meta:
         model = User
         fields = ['id', 'username', 'email', 'memopads']
+
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
@@ -20,13 +22,15 @@ class CategorySerializer(serializers.ModelSerializer):
 
         return instance
 
+
 class MemoPadsSerializer(serializers.ModelSerializer):
     category = CategorySerializer()
-    print('tuuuutaj category', category)
+
+    # category = serializers.StringRelatedField()
     class Meta:
         model = MemoPads
         fields = '__all__'
-#       '__all__' == fields = ('id', 'owner', 'title', 'category', 'note', 'image')
+        # fields = ('id', 'owner', 'title', 'category', 'note', 'image')
 
     def create(self, validated_data):
         category_data = validated_data.pop('category')
@@ -35,15 +39,28 @@ class MemoPadsSerializer(serializers.ModelSerializer):
         return memo_instance
 
     def update(self, instance, validated_data):
+        """Update existing memopad. It is checking is category existin or is new"""
         category_data = validated_data.pop('category')
-        print('tuuuuuuutaj',category_data)
-        instance.category.category = category_data.get('category', instance.category.category)
+        userMemeos = MemoPads.objects.filter(owner=validated_data.get('owner'))
+        is_new_Category = False
+
+
+        for memo in userMemeos:
+            if memo.category.category == category_data.get('category'):
+                is_new_Category = False
+                break
+            else:
+                is_new_Category = True
+
+        if is_new_Category:
+            new_category = Category.objects.create(category=category_data.get('category'))
+            category = new_category
+        else:
+            category = Category.objects.get(category=category_data.get('category'))
+
+        instance.category = category
         instance.title = validated_data.get('title', instance.title)
         instance.note = validated_data.get('note', instance.note)
         instance.image = validated_data.get('image', instance.image)
         instance.save()
         return instance
-
-
-
-
