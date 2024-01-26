@@ -25,11 +25,13 @@ class MemoPadViewSet(viewsets.ModelViewSet):
     This ViewSet automatically provides `list`, `create`, `retrieve`,
     `update` and `destroy` actions.
     """
-    queryset = MemoPads.objects.all()
-    category = Category.objects.all()
-    category_serializer = CategorySerializer
     serializer_class = MemoPadsSerializer
     permission_classes = [permissions.IsAuthenticated]
+    queryset = MemoPads.objects.all()
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_queryset(self):
+        return MemoPads.objects.filter(owner=self.request.user)
 
 
     def perform_create(self, serializer):

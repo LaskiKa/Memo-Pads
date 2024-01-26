@@ -10,53 +10,7 @@
     </div>
 </div>
 
-<div class="addMemoPadModalBox">
-    <div class="modal-content">
-        <span class="close">&times;</span>
-        <form id="addMemoPadForm" class="addMemoPadForm" method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            <label>Title:</label>
-            <input type="text" id="title" name="title" required>
 
-            <label id="category-label">Category:</label>
-            <select id="category-select" name="category-select" required>
-                {% for category in categories %}
-                <option value="{{category.id}}">{{category.category}}</option>
-                {% endfor %}
-                <option value="addNewCategory">New Category</option>
-            </select>
-
-            <input type="text" id="category-input" name="category-input">
-
-            <label for="note">Note:</label>
-            <textarea id="note" name="note"></textarea>
-
-            <label for="image">Obraz:</label>
-            <input id="image" name="image" type="file">
-
-            <input type="submit" value="Add Memo Pad">
-        </form>
-    </div>
-</div>
-
-{% for memopad in memopads %}
-<div class="memopadbox">
-
-    <div class="memopadbox-descbox">
-        <div class="memopadbox-descbox-title">{{memopad.title}}</div>
-        <a href="{% url 'memopad' memopad.id %}"> <input class="edit-button" type="button" value="Edit"> </a>
-        <div class="memopadbox-descbox-category">{{memopad.category.category}}</div>
-    </div>
-
-    <div class="memopadbox-details">
-        <div class="memopadbox-details-notes">{{memopad.note|safe}}</div>
-        {% if memopad.image %}
-        <img class="memopadbox-details-image" src="{{ memopad.image.url }}" alt="Memo Image" loading="lazy">
-        {% endif %}
-    </div>
-
-</div>
-{% endfor %}
 
 
 {% if user.is_authenticated %}
@@ -85,4 +39,7 @@
         toolbar: 'bullist numlist bold italic underline lignleft aligncenter alignright alignjustify',
     });
 </script>
+<script src="{% static 'view.js' %}"></script>
+
+
 {% endblock %}

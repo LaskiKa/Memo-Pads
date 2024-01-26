@@ -25,8 +25,6 @@ class CategorySerializer(serializers.ModelSerializer):
 
 class MemoPadsSerializer(serializers.ModelSerializer):
     category = CategorySerializer()
-
-    # category = serializers.StringRelatedField()
     class Meta:
         model = MemoPads
         fields = '__all__'
