@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% load static %}
-
 {% block body %}
 
 <div class="galleryModalBox">
@@ -39,7 +38,7 @@
         toolbar: 'bullist numlist bold italic underline lignleft aligncenter alignright alignjustify',
     });
 </script>
-<script src="{% static 'view.js' %}"></script>
+<script type="module" src="{% static 'view.js' %}"></script>
 
 
 {% endblock %}

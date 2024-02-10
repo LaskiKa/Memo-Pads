@@ -86,6 +86,8 @@ body {
     display: flex;
     flex-direction: column;
     margin-top: 5px;
+    overflow: auto;
+
 }
 
 .memopadbox-details-shuffle {
@@ -180,22 +182,42 @@ body {
 }
 
 /* Scrollbar settings */
-.editMemoPadModalBox2::-webkit-scrollbar {
+.editMemoPadModalBox2::-webkit-scrollbar,
+.memopadbox-details::-webkit-scrollbar {
     width: 2px;
     border-radius: 10px;
 }
 
-.editMemoPadModalBox2::-webkit-scrollbar-track {
+.memopadbox-details::-webkit-scrollbar {
+    width: 4px;
+}
+
+.editMemoPadModalBox2::-webkit-scrollbar-track,
+.memopadbox-details::-webkit-scrollbar-track {
     background: #f1f1f1;
     border-radius: 10px;
     margin-top: 5px;
     margin-bottom: 5px;
-
 }
 
-.editMemoPadModalBox2::-webkit-scrollbar-thumb {
+.memopadbox-details::-webkit-scrollbar-track {
+    background: #ffffaa;
+    margin-top: 0;
+}
+
+.editMemoPadModalBox2::-webkit-scrollbar-thumb,
+.memopadbox-details::-webkit-scrollbar-thumb {
     background: #888;
     border-radius: 10px;
+  }
+
+  .memopadbox-details::-webkit-scrollbar-thumb {
+    background: #f4e230;
+  }
+
+  .memopadbox-details::-webkit-scrollbar-button {
+    width: 1px;
+    height: 1px;
   }
 
 
@@ -249,6 +271,7 @@ body {
     max-width: 80%;
     max-height: 80%;
     transition: transform 0.3s ease-in-out;
+    border-radius: 10px;
 }
 
 .galleryContent img:hover {

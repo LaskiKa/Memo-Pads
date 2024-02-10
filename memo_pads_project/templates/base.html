@@ -3,7 +3,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" name="csrf_token" content="{{ csrf_token }}">
+<!--    <meta name="_csrf" th:content="${_csrf.token}"/>-->
+<meta name="_csrf_header" th:content="${_csrf.headerName}"/>
     <link
         rel="stylesheet"
         href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
@@ -22,7 +24,7 @@
     <a href="{% url 'login' %}">Login</a>
     <a href="{% url 'register' %}">Register</a>
     {% endif %}
-    <a class="user">{{user}}</a>
+    <a class="user" id="{{user.id}}" >{{user}}</a>
 </nav>
 {%block body%}
 
@@ -31,6 +33,5 @@
 {% endblock %}
 
 </body>
-<script src="{% static 'app.js' %}"></script>
-
+<script type="module" src="{% static 'app.js' %}"></script>
 </html>
