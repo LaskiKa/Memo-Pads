@@ -9,7 +9,7 @@ const openGallery = (imageSrc)  => {
 }
 
 // Edit memo pad fu
-const editMemoPadPost = (memopadid) => {
+const editMemoPadPost = async (memopadid) => {
     console.log('to jest POST ', memopadid);
 
     const detailsMemoPad = document.querySelector('.editMemoPadModalBox2')
@@ -23,12 +23,8 @@ const editMemoPadPost = (memopadid) => {
     const csrfToken = document.head.querySelector("[name~=csrf_token][content]").content;
     const owner = document.querySelector('.user').id
 
-    console.log('selectedCategoryText ', selectedCategoryText);
-    console.log("New Category");
-    console.log(selectedCategoryText == "New Category");
-    if (selectedCategoryText == "New Category") {
-        const newCategoryInput = document.querySelector('#category-input').value
-        fetch('http://127.0.0.1:8000/categoryapi/', {
+    const createCategory = async (newCategoryInput) => {
+        const response = await fetch('http://127.0.0.1:8000/categoryapi/', {
             headers: {
                 "X-Csrftoken": csrfToken,
                 "Content-Type": "application/json"
@@ -39,19 +35,51 @@ const editMemoPadPost = (memopadid) => {
                 "category": newCategoryInput
             })
         })
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-            console.log(data.id);
-            console.log(data.category);
-            categoryUpdate['id'] = data.id
-            categoryUpdate['category']= data.category
-            console.log('update ', categoryUpdate);
-        })
-        .catch(error => console.error('error POST category:', error));
-        console.log('Działa Nowa kateogira!?');
+        const data = response.json()
+        return data
+    }
+
+
+    console.log('selectedCategoryText ', selectedCategoryText);
+    console.log("New Category");
+    console.log(selectedCategoryText == "New Category");
+
+    if (selectedCategoryText == "New Category") {
+        const newCategoryInput = document.querySelector('#category-input').value
+
+        const data = await createCategory(newCategoryInput)
+
+        console.log('data cat', data);
+        categoryUpdate['id'] = data.id
+        categoryUpdate['category']= data.category
+        
+        
+        // fetch('http://127.0.0.1:8000/categoryapi/', {
+        //     headers: {
+        //         "X-Csrftoken": csrfToken,
+        //         "Content-Type": "application/json"
+        //       },
+        //     method: 'POST',
+        //     credentials: "same-origin",
+        //     body: JSON.stringify({
+        //         "category": newCategoryInput
+        //     })
+        // })
+        // .then(response => response.json())
+        // .then(data => {
+        //     console.log(data);
+        //     console.log(data.id);
+        //     console.log(data.category);
+        //     categoryUpdate['id'] = data.id
+        //     categoryUpdate['category']= data.category
+        //     console.log('update ', categoryUpdate);
+        // })
+        // .catch(error => console.error('error POST category:', error));
+        // console.log('Działa Nowa kateogira!?');
     } else {
-        categoryUpdate = {'id': selectedCategoryId, "category": selectedCategoryText}
+        // categoryUpdate = {'id': selectedCategoryId, "category": selectedCategoryText}
+        categoryUpdate['id'] = selectedCategoryId
+        categoryUpdate['category']= selectedCategoryText
     }
     console.log("New category  fetch ",categoryUpdate);
 
@@ -59,6 +87,9 @@ const editMemoPadPost = (memopadid) => {
     // PROBLEM Z synchronizacją tworzenia kategorii i updatu całej notatki
     // Czy funckja nie musi być asynchroniczna???
     // Wrzucić w asynchroncizną funkcje powyższe kod.
+
+    
+
     fetch(`http://127.0.0.1:8000/memopadsapi/${memopadid}/`, {
         headers: {
             "X-Csrftoken": csrfToken,
@@ -76,9 +107,10 @@ const editMemoPadPost = (memopadid) => {
             })
         })
         console.log('Działa!?');
+        location.reload()
     }
 
-const details = (memoPadId) => {
+const details = async (memoPadId) => {
     // Show memopad details function
     console.log(memoPadId);
     const template = document.createElement('div')
@@ -148,23 +180,37 @@ const details = (memoPadId) => {
     })
 
     
-    
-    fetch(`http://127.0.0.1:8000/memopadsapi/${memoPadId}`)
-        .then(memopad => memopad.json())
-        .then(memopad => {
+    const response = await fetch(`http://127.0.0.1:8000/memopadsapi/${memoPadId}`)
+    const memopad = await response.json();
+    console.log(memopad);
 
-            template.querySelector('#title').value = memopad.title
-            template.querySelector('#note').innerHTML = memopad.note
-            if (memopad.image == null) {
-                template.querySelector('.memopadbox-details-image').remove()
-            } else {
-                template.querySelector('.memopadbox-details-image').src = memopad.image;
-            };           
+    template.querySelector('#title').value = memopad.title
+    template.querySelector('#note').innerHTML = memopad.note
+    if (memopad.image == null) {
+        template.querySelector('.memopadbox-details-image').remove()
+    } else {
+        template.querySelector('.memopadbox-details-image').src = memopad.image;
+    }; 
 
-            template.querySelector(`option[value="${memopad.category.id}"]`).selected = true
+    template.querySelector(`option[value="${memopad.category.id}"]`).selected = true
+
+
+    // fetch(`http://127.0.0.1:8000/memopadsapi/${memoPadId}`)
+    //     .then(memopad => memopad.json())
+    //     .then(memopad => {
+
+    //         template.querySelector('#title').value = memopad.title
+    //         template.querySelector('#note').innerHTML = memopad.note
+    //         if (memopad.image == null) {
+    //             template.querySelector('.memopadbox-details-image').remove()
+    //         } else {
+    //             template.querySelector('.memopadbox-details-image').src = memopad.image;
+    //         };           
+
+    //         template.querySelector(`option[value="${memopad.category.id}"]`).selected = true
             
             
-        })
+    //     })
 
     
     document.body.append(template)
@@ -179,61 +225,7 @@ const details = (memoPadId) => {
 
 // Upload all user memopads
 
-// fetch("http://127.0.0.1:8000/memopadsapi/")
-//     .then(data => data.json())
-//     .then(data => {
-//         sessionStorage.clear()
-//         const allCategories = []
-//         data.forEach(memoPad => {
-//             const template = document.createElement('div');
-//             template.innerHTML = `
-//             <div class="memopadbox">
-
-//                 <div class="memopadbox-descbox">
-//                     <div class="memopadbox-descbox-title"></div>
-//                     <a href=""> <input class="edit-button" type="button" value="Edit"> </a>
-//                     <div class="memopadbox-descbox-category"></div>
-//                 </div>
-        
-//                 <div class="memopadbox-details">
-//                     <div class="memopadbox-details-notes"></div>
-//                     <img class="memopadbox-details-image" src="" alt="Memo Image" loading="lazy">
-//                 </div>
-        
-//             </div>`;
-//             template.querySelector('a').href = memoPad.id
-//             template.querySelector('.memopadbox-descbox-title').textContent = memoPad.title;
-//             template.querySelector('.memopadbox-descbox-category').textContent = memoPad.category;
-//             allCategories.push(memoPad.category)
-//             template.querySelector('.memopadbox-details-notes').innerHTML = memoPad.note;
-//             if (memoPad.image == null) {
-//                 template.querySelector('.memopadbox-details-image').remove()
-//             } else {
-//                 template.querySelector('.memopadbox-details-image').src = memoPad.image;
-//                 template.querySelector('.memopadbox-details-image').addEventListener('click', (e) => {
-//                     openGallery(template.querySelector('.memopadbox-details-image').getAttribute('src'))
-//                     e.stopPropagation()
-//                 })
-//             };
-
-//             const memopadbox = template.querySelector(".memopadbox")
-//             memopadbox.style.cursor = 'pointer'
-//             memopadbox.addEventListener('click', () => {
-//                 details(memoPad.id)
-//             })
-//             document.body.append(template)
-
-//         });
-//         sessionStorage.setItem('allCategories', JSON.stringify(allCategories))
-//         console.log(sessionStorage.getItem('allCategories'));
-//     })
-//     .catch(error => {
-//         console.error('Error:', error);
-
-
-//     });
-
-async function fetchData() {
+const allMemopads = async() => {
     try {
       const response = await fetch("http://127.0.0.1:8000/memopadsapi/");
       const data = await response.json();
@@ -247,7 +239,6 @@ async function fetchData() {
           <div class="memopadbox">
             <div class="memopadbox-descbox">
               <div class="memopadbox-descbox-title"></div>
-              <a href=""> <input class="edit-button" type="button" value="Edit"> </a>
               <div class="memopadbox-descbox-category"></div>
             </div>
             <div class="memopadbox-details">
@@ -256,9 +247,8 @@ async function fetchData() {
             </div>
           </div>`;
           
-        template.querySelector('a').href = memoPad.id;
         template.querySelector('.memopadbox-descbox-title').textContent = memoPad.title;
-        template.querySelector('.memopadbox-descbox-category').textContent = memoPad.category;
+        template.querySelector('.memopadbox-descbox-category').textContent = memoPad.category.category;
         allCategories.push(memoPad.category);
         template.querySelector('.memopadbox-details-notes').innerHTML = memoPad.note;
         
@@ -287,8 +277,5 @@ async function fetchData() {
     }
   }
   
-  fetchData();
+  allMemopads();
 
-
-
-// const memopadbox
