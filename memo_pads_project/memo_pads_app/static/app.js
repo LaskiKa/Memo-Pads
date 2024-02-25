@@ -1,5 +1,5 @@
 import {reloadTinyMCE} from "./reloadTinyMce.js";
-
+import { createCategory } from "./view.js";
 
 document.addEventListener('DOMContentLoaded', function () {
     const descboxesShuffle = document.querySelectorAll('.memopadbox-descbox-shuffle');
@@ -37,8 +37,37 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    // Add MemoPad
+    // Creat new memopad function - API
+    const createNewMemopad = async (newMemopadContent, csrfToken) => {
+        const response = await fetch('http://127.0.0.1:8000/memopadsapi/', {
+            headers: {
+                "X-Csrftoken": csrfToken,
+              },
+              method: 'POST',
+              credentials: 'same-origin',
+              body: newMemopadContent
+        })
+        .then(response => {
+            // Reload site after memopad update
+                if (response.ok) {
+                    const data = response.json()
+                    location.reload()
+                    return data
+                }
+            })
+            .catch(error => {
+                console.log("Error: ", error);
+            });
+
+
+    }
+
+    // Show new memo pad form
     btn.onclick = () => {
+
+        const owner = document.querySelector('.user').id
+        const newMemopadContent = new FormData();
+        
         const template = document.createElement('div');
         template.innerHTML = `
             <div class="modal-content">
@@ -60,7 +89,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     <label for="image">Obraz:</label>
                     <input id="image" name="image" type="file">
 
-                    <input type="submit" value="Add Memo Pad">
+                    <input class = "addMemoPadbtn" type="button" value="Add Memo Pad">
                 </form>
             </div>
         `
@@ -81,6 +110,54 @@ document.addEventListener('DOMContentLoaded', function () {
             template.querySelector('#category-select').prepend(option)
         })
 
+        //Creating new memopad
+        template.querySelector('.addMemoPadbtn').addEventListener('click' , async () => {
+            const csrfToken = document.head.querySelector("[name~=csrf_token][content]").content;
+            const formConeten = document.querySelector('.addMemoPadForm')
+
+            // Category verification
+            const category = formConeten['category-select']
+            const selectedCategoryId = category.options[category.selectedIndex].value
+            const selectedCategoryText = category.options[category.selectedIndex].text
+            const categoryUpdate = {"id": "", "category": ""}
+
+
+            if (selectedCategoryText == "New Category") {
+
+                const newCategoryInput = document.querySelector('#category-input').value                
+                const data = await createCategory(newCategoryInput, csrfToken)
+
+                categoryUpdate['id'] = data.id
+                categoryUpdate['category']= data.category
+                
+            } else {
+                categoryUpdate['id'] = selectedCategoryId
+                categoryUpdate['category']= selectedCategoryText
+            }
+
+            // Fill up memopad content
+            newMemopadContent.append("title", formConeten['title'].value);
+            newMemopadContent.append("category.category", categoryUpdate.category);
+            newMemopadContent.append("note", tinymce.activeEditor.getContent());
+            newMemopadContent.append("owner", owner);
+
+            // If no image
+            if (formConeten.querySelector('#image').files[0]) {
+                newMemopadContent.append("image", formConeten.querySelector('#image').files[0]);
+                console.log("zsdfasfdgsf");
+            }
+
+            // newMemopadContent['title'] = formConeten['title'].value
+            // newMemopadContent['category'] = categoryUpdate
+            // newMemopadContent['note'] = tinymce.activeEditor.getContent();
+            // newMemopadContent['image'] = formConeten['image'].files[0]
+            // newMemopadContent['owner'] = owner
+            console.log(formConeten.querySelector('#image').files[0]);
+            
+            createNewMemopad(newMemopadContent, csrfToken)
+
+        })
+
         template.querySelector('input[id="category-input"]').style.display = 'flex'
 
         document.body.append(template)
@@ -89,7 +166,6 @@ document.addEventListener('DOMContentLoaded', function () {
         const selectCategory = document.querySelector("#category-select")
         const categoryInput = document.querySelector('#category-input')
         selectCategory.addEventListener('change', () => {
-            console.log('selectCategory change');
             if (selectCategory.value == 'addNewCategory') {
                 categoryInput.style.display = 'flex';
                 categoryInput.required = true;

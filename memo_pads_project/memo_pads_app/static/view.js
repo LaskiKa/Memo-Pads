@@ -8,10 +8,28 @@ const openGallery = (imageSrc)  => {
 
 }
 
-// Edit memo pad fu
-const editMemoPadPost = async (memopadid) => {
-    console.log('to jest POST ', memopadid);
+// Create category function
+export const createCategory = async (newCategoryInput, csrfToken) => {
+    const response = await fetch('http://127.0.0.1:8000/categoryapi/', {
+        headers: {
+            "X-Csrftoken": csrfToken,
+            "Content-Type": "application/json"
+          },
+        method: 'POST',
+        credentials: "same-origin",
+        body: JSON.stringify({
+            "category": newCategoryInput
+        })
+    })
+    const data = response.json()
+    return data
+}
 
+
+// Edit memo pad function
+const editMemoPadPost = async (memopadid) => {
+
+    const csrfToken = document.head.querySelector("[name~=csrf_token][content]").content;
     const detailsMemoPad = document.querySelector('.editMemoPadModalBox2')
     const title = detailsMemoPad.querySelector('#title').value
     const note = tinymce.activeEditor.getContent();
@@ -20,99 +38,58 @@ const editMemoPadPost = async (memopadid) => {
     const selectedCategoryId = category.options[category.selectedIndex].value
     const selectedCategoryText = category.options[category.selectedIndex].text
     const categoryUpdate = {"id": "", "category": ""}
-    const csrfToken = document.head.querySelector("[name~=csrf_token][content]").content;
     const owner = document.querySelector('.user').id
 
-    const createCategory = async (newCategoryInput) => {
-        const response = await fetch('http://127.0.0.1:8000/categoryapi/', {
-            headers: {
-                "X-Csrftoken": csrfToken,
-                "Content-Type": "application/json"
-              },
-            method: 'POST',
-            credentials: "same-origin",
-            body: JSON.stringify({
-                "category": newCategoryInput
-            })
-        })
-        const data = response.json()
-        return data
-    }
 
-
-    console.log('selectedCategoryText ', selectedCategoryText);
-    console.log("New Category");
-    console.log(selectedCategoryText == "New Category");
 
     if (selectedCategoryText == "New Category") {
         const newCategoryInput = document.querySelector('#category-input').value
 
-        const data = await createCategory(newCategoryInput)
+        const data = await createCategory(newCategoryInput, csrfToken)
 
-        console.log('data cat', data);
         categoryUpdate['id'] = data.id
         categoryUpdate['category']= data.category
         
-        
-        // fetch('http://127.0.0.1:8000/categoryapi/', {
-        //     headers: {
-        //         "X-Csrftoken": csrfToken,
-        //         "Content-Type": "application/json"
-        //       },
-        //     method: 'POST',
-        //     credentials: "same-origin",
-        //     body: JSON.stringify({
-        //         "category": newCategoryInput
-        //     })
-        // })
-        // .then(response => response.json())
-        // .then(data => {
-        //     console.log(data);
-        //     console.log(data.id);
-        //     console.log(data.category);
-        //     categoryUpdate['id'] = data.id
-        //     categoryUpdate['category']= data.category
-        //     console.log('update ', categoryUpdate);
-        // })
-        // .catch(error => console.error('error POST category:', error));
-        // console.log('Działa Nowa kateogira!?');
     } else {
-        // categoryUpdate = {'id': selectedCategoryId, "category": selectedCategoryText}
         categoryUpdate['id'] = selectedCategoryId
         categoryUpdate['category']= selectedCategoryText
     }
-    console.log("New category  fetch ",categoryUpdate);
 
-    // Jak nadpisać zmiany na stronie. Co zrobić po porawnym wykonaniu requesta.
-    // PROBLEM Z synchronizacją tworzenia kategorii i updatu całej notatki
-    // Czy funckja nie musi być asynchroniczna???
-    // Wrzucić w asynchroncizną funkcje powyższe kod.
+    // Create FormData 
+    const formData = new FormData();
+    formData.append("id", memopadid);
+    formData.append("category.category", categoryUpdate.category);
+    formData.append("title", title);
+    formData.append("note", note);
+    formData.append("owner", owner);
 
-    
+    if (image) {
+        formData.append('image', image);
+    }
 
+    // Update memopad
     fetch(`http://127.0.0.1:8000/memopadsapi/${memopadid}/`, {
         headers: {
             "X-Csrftoken": csrfToken,
-            "Content-Type": "application/json"
         },
             method: 'PUT',
             credentials: "same-origin",
-            body: JSON.stringify({
-                "id": memopadid,
-                "category": categoryUpdate,
-                "title": title,
-                "note": note,
-                "image": image,
-                "owner": owner
-            })
+            body: formData
         })
-        console.log('Działa!?');
-        location.reload()
+        .then(response => {
+        // Reload site after memopad update
+            if (response.ok) {
+                location.reload()
+            }
+        })
+        .catch(error => {
+            console.log("Error: ", error);
+        });
+
     }
 
 const details = async (memoPadId) => {
     // Show memopad details function
-    console.log(memoPadId);
     const template = document.createElement('div')
     template.innerHTML = `
     <div class="modal-content">
@@ -154,7 +131,6 @@ const details = async (memoPadId) => {
     template.querySelector('a').href = `delete/${memoPadId}`
 
     template.querySelector('#category-select').addEventListener('change', () => {
-        console.log('category imput');
         if (template.querySelector('#category-select').value == 'addNewCategory') {
             template.querySelector('#category-input').style.display = 'flex'
             template.querySelector('#category-input').required = true;
@@ -182,7 +158,6 @@ const details = async (memoPadId) => {
     
     const response = await fetch(`http://127.0.0.1:8000/memopadsapi/${memoPadId}`)
     const memopad = await response.json();
-    console.log(memopad);
 
     template.querySelector('#title').value = memopad.title
     template.querySelector('#note').innerHTML = memopad.note
@@ -271,7 +246,6 @@ const allMemopads = async() => {
       });
   
       sessionStorage.setItem('allCategories', JSON.stringify(allCategories));
-      console.log(sessionStorage.getItem('allCategories'));
     } catch (error) {
       console.error('Error:', error);
     }
