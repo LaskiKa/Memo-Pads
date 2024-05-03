@@ -1,5 +1,7 @@
 # Memo-Pads
 
+##### Feel free to check out the [Memo Pads](https://klaski.pythonanywhere.com/) app and start organizing your notes!
+
 ## Overwie
 The "Memo Pads" Django project is a versatile and user-friendly web application designed to revolutionize note-taking and organization. Whether you need to jot down quick reminders, create to-do lists, or organize your thoughts, Memo Pads provides an intuitive platform to manage your notes efficiently.
 
@@ -10,9 +12,7 @@ The "Memo Pads" Django project is a versatile and user-friendly web application 
   - Project includes a "Shuffle" feature that allows users to randomly reorder their memos.
 - Categorization: Organize notes by assigning them to specific categories.
 - Image Upload: Attach images to your notes to enhance the visual aspect.
-  
 
-###### Feel free to check out the [Memo Pads](https://klaski.pythonanywhere.com/) app and start organizing your notes!
 
 ## Technology Stack
 - Framework: Django
