@@ -38,7 +38,7 @@ git clone git@github.com:LaskiKa/Memo-Pads.git
 2. Install the required dependencies:
 ```commandline
 pip install -r requirements.txt 
-```\
+```
 
 ##Example:
 
