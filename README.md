@@ -38,4 +38,13 @@ git clone git@github.com:LaskiKa/Memo-Pads.git
 2. Install the required dependencies:
 ```commandline
 pip install -r requirements.txt 
-```
+```\
+
+##Example:
+
+1. Register form
+
+![Register form](https://github.com/LaskiKa/Memo-Pads/assets/111377184/15f65331-a6f1-40f8-b56b-c81893f78b83)
+
+
+
