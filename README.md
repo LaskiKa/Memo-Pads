@@ -46,5 +46,8 @@ pip install -r requirements.txt
 
 ![Register form](https://github.com/LaskiKa/Memo-Pads/assets/111377184/15f65331-a6f1-40f8-b56b-c81893f78b83)
 
+2. Add new memopad
+
+![Add memopad](https://github.com/LaskiKa/Memo-Pads/assets/111377184/e1ab2f79-2418-4ae4-b989-64cfd6a36fc6)
 
 
