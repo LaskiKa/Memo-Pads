@@ -65,6 +65,8 @@ body {
 
 .memopadbox-details {
     margin-top: 5px;
+    padding: 0.5rem;
+    overflow-y: auto;
 }
 
 .memopadbox-details-notes {
